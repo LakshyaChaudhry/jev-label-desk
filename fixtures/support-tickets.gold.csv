@@ -1,0 +1,9 @@
+id,gold,notes
+T-101,technical,Opus-style gold: lockout / reset email
+T-102,billing,Duplicate charge + refund
+T-103,sales,Pricing / Team plan evaluation
+T-104,technical,Export CSV failure
+T-105,other,Compliment only
+T-106,billing,Seat invoice credit
+T-107,technical,HubSpot sync outage
+T-108,sales,Security review / procurement docs — intentional Jev/gold split vs mock "other"

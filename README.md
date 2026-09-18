@@ -39,6 +39,7 @@ Without a key, set `JEV_MOCK=1` so the happy path still runs.
 3. Leave the default **choice** rubric (billing / technical / sales / other), or switch to **noul** / **score**.
 4. **Batch label**. Watch progress. Failed rows are marked; the batch continues.
 5. **Export labeled CSV** — original columns plus `label`, `confidence`, `label_detail`, `model`, `error`.
+6. Optional: **Compare to gold** — attach a gold column/file (or load the sample), then export a comparison report.
 
 ## Label modes
 
@@ -78,6 +79,25 @@ Server-only `POST https://openrouter.ai/api/alpha/decisions`:
 
 If `~typesafe/jev-latest` fails transiently, the desk retries and then falls back to `typesafe/jev-1.13`. 4xx validation errors fail that row only.
 
+## Gold-label comparison
+
+Optional eval step on the results screen. Gold can come from:
+
+- a column already in the dataset (`gold`, `gold_label`, `label`, …)
+- a second CSV/JSONL joined on `id`, or by row order
+- sample files under `fixtures/` (`support-tickets.gold.csv`, `.gold-noul.csv`, `.gold-score.csv`)
+
+After Jev labels, the desk reports:
+
+- exact match rate
+- per-class precision / recall / F1 (noul + choice)
+- MAE and Pearson r (score)
+- a disagreement table (id, snippet, jev, gold)
+
+**Export comparison report** writes `*-comparison-report.md` (blog-ready summary) and `*-comparison-report.csv` (disagreements). The labeled CSV also gains `gold_label` and `agree` when gold is attached.
+
+The sample gold for choice mode agrees with mock Jev on 7/8 tickets; `T-108` is an intentional split (`sales` vs `other`) so the disagreement table is non-empty.
+
 ## Scripts
 
 ```bash
@@ -90,9 +110,10 @@ npm run build
 ## Layout
 
 ```
-fixtures/                 sample tickets (CSV + JSONL)
+fixtures/                 sample tickets + gold CSVs
 src/app/api/label         streaming NDJSON batch
 src/app/api/health        mock / key / model status
 src/lib/decisions.ts      OpenRouter client, retry, fallback
-src/components/Desk.tsx   four-step UI
+src/lib/compare.ts        gold agreement metrics + report
+src/components/Desk.tsx   four-step UI + optional compare
 ```

@@ -4,6 +4,9 @@ import path from "node:path";
 const ALLOWED: Record<string, string> = {
   "support-tickets.csv": "text/csv; charset=utf-8",
   "support-tickets.jsonl": "application/x-ndjson; charset=utf-8",
+  "support-tickets.gold.csv": "text/csv; charset=utf-8",
+  "support-tickets.gold-noul.csv": "text/csv; charset=utf-8",
+  "support-tickets.gold-score.csv": "text/csv; charset=utf-8",
 };
 
 export async function GET(

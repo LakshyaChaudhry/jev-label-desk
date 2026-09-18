@@ -106,12 +106,15 @@ export function columnsFromRows(rows: DatasetRow[]): string[] {
   return [...seen];
 }
 
+const NON_TEXT = /^(id|gold|gold_label|gold_labels|label|opus|opus_label|human|human_label|notes)$/i;
+
 export function guessTextFields(columns: string[]): string[] {
+  const usable = columns.filter((col) => !NON_TEXT.test(col));
   const preferred = ["message", "text", "content", "body", "comment", "review", "item"];
-  const hits = columns.filter((col) => preferred.includes(col.toLowerCase()));
+  const hits = usable.filter((col) => preferred.includes(col.toLowerCase()));
   if (hits.length > 0) return hits;
-  const subject = columns.find((col) => /subject|title|prompt/i.test(col));
-  return subject ? [subject] : columns.slice(0, 1);
+  const subject = usable.find((col) => /subject|title|prompt/i.test(col));
+  return subject ? [subject] : usable.slice(0, 1);
 }
 
 export function parseDataset(filename: string, text: string): Dataset {

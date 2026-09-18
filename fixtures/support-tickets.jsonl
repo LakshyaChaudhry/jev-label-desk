@@ -1,0 +1,8 @@
+{"id":"T-101","channel":"email","subject":"Can't sign in after password reset","message":"I reset my password last night and the reset email never arrived. I have been locked out all morning and my team cannot access the dashboard."}
+{"id":"T-102","channel":"chat","subject":"Charged twice for order A-104","message":"My card was charged twice for order A-104. Please refund the duplicate charge today — we need the cash back before payroll."}
+{"id":"T-103","channel":"email","subject":"Curious about the Team plan","message":"Hi — we are evaluating your product for a 12-seat team. Can you send pricing for the Team plan and whether annual billing includes a discount?"}
+{"id":"T-104","channel":"email","subject":"Export button does nothing","message":"Clicking Export CSV on the reports page shows a spinner then fails silently. Chrome 128 on macOS. This is blocking our weekly board packet."}
+{"id":"T-105","channel":"chat","subject":"Just saying thanks","message":"No issue here — the new onboarding checklist is excellent. Passing along a compliment from our CS team."}
+{"id":"T-106","channel":"email","subject":"Invoice 8831 looks wrong","message":"Invoice 8831 billed us for 20 seats but we only have 14 active. Please correct it and issue a credit. This is the second month in a row."}
+{"id":"T-107","channel":"form","subject":"Integration with HubSpot","message":"The HubSpot sync stopped updating contacts after Tuesday's deploy. No error in the UI. We need this restored before Friday's campaign."}
+{"id":"T-108","channel":"email","subject":"Do you offer SOC 2?","message":"We are in security review. Do you have SOC 2 Type II and a DPA we can sign? Not urgent, just collecting documents."}

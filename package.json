@@ -1,0 +1,25 @@
+{
+  "name": "jev-label-desk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Weekend demo: upload a dataset, define Jev criteria, batch-label via OpenRouter Decisions, export CSV.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit",
+    "test": "tsx --test src/lib/*.test.ts"
+  },
+  "dependencies": {
+    "next": "^15.5.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.1",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

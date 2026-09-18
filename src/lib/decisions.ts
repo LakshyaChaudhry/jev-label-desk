@@ -6,14 +6,31 @@ const PRIMARY_MODEL = process.env.JEV_MODEL || "~typesafe/jev-latest";
 const FALLBACK_MODEL = process.env.JEV_FALLBACK_MODEL || "typesafe/jev-1.13";
 const DECISIONS_URL =
   process.env.OPENROUTER_DECISIONS_URL || "https://openrouter.ai/api/alpha/decisions";
+const OPENROUTER_KEY_RE = /^sk-[A-Za-z0-9_-]+$/;
+
+export const OPENROUTER_KEY_ERROR =
+  "Set a real OPENROUTER_API_KEY from openrouter.ai/keys (must start with sk-), or enable JEV_MOCK=1";
 
 export function isMockEnabled(): boolean {
   const flag = (process.env.JEV_MOCK || "").toLowerCase();
   return flag === "1" || flag === "true" || flag === "yes";
 }
 
+export function normalizeOpenRouterApiKey(value: string | undefined | null): string {
+  return (value ?? "").trim();
+}
+
+export function isOpenRouterApiKey(value: string): boolean {
+  return OPENROUTER_KEY_RE.test(value);
+}
+
+export function openRouterApiKey(): string | undefined {
+  const key = normalizeOpenRouterApiKey(process.env.OPENROUTER_API_KEY);
+  return isOpenRouterApiKey(key) ? key : undefined;
+}
+
 export function hasApiKey(): boolean {
-  return Boolean(process.env.OPENROUTER_API_KEY?.trim());
+  return Boolean(openRouterApiKey());
 }
 
 export function modelConfig() {
@@ -63,8 +80,8 @@ async function postDecisions(
   state: unknown,
   questions: Record<string, unknown>,
 ): Promise<DecisionsResponse> {
-  const key = process.env.OPENROUTER_API_KEY?.trim();
-  if (!key) throw new Error("OPENROUTER_API_KEY is not set");
+  const key = openRouterApiKey();
+  if (!key) throw new Error(OPENROUTER_KEY_ERROR);
 
   const response = await fetch(DECISIONS_URL, {
     method: "POST",

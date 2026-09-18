@@ -1,4 +1,11 @@
-import { concurrency, hasApiKey, isMockEnabled, labelState, modelConfig } from "@/lib/decisions";
+import {
+  concurrency,
+  hasApiKey,
+  isMockEnabled,
+  labelState,
+  modelConfig,
+  OPENROUTER_KEY_ERROR,
+} from "@/lib/decisions";
 import { buildState } from "@/lib/parse";
 import { validateCriteria } from "@/lib/criteria";
 import type { LabelEvent, LabelRequest, RowLabel } from "@/lib/types";
@@ -31,10 +38,7 @@ export async function POST(request: Request) {
   const invalid = validateCriteria(criteria);
   if (invalid) return Response.json({ error: invalid }, { status: 400 });
   if (!isMockEnabled() && !hasApiKey()) {
-    return Response.json(
-      { error: "Set OPENROUTER_API_KEY or enable JEV_MOCK=1" },
-      { status: 400 },
-    );
+    return Response.json({ error: OPENROUTER_KEY_ERROR }, { status: 400 });
   }
 
   const limit = concurrency();
